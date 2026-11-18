@@ -120,11 +120,25 @@
     }
 
     var buildUrl = "Build";
+
+    // Every build's files are requested under a new URL.
+    //
+    // Unity names its output the same thing every time, so a static host's CDN
+    // happily keeps serving yesterday's copies. That is not a cosmetic problem:
+    // a fresh index.html paired with a cached data file fails with
+    // "Cannot read properties of undefined (reading 'subarray')" and a blank
+    // canvas, because the loader is handed bytes from a different build.
+    //
+    // BuildScript rewrites the stamp below on every build, so each publish asks
+    // for URLs nobody has cached — including people who already loaded the old
+    // one. The files on disk keep their normal names.
+    var v = "?v=20261118182351";
+
     var config = {
       arguments: [],
-      dataUrl: buildUrl + "/WebGL.data.unityweb",
-      frameworkUrl: buildUrl + "/WebGL.framework.js.unityweb",
-      codeUrl: buildUrl + "/WebGL.wasm.unityweb",
+      dataUrl: buildUrl + "/WebGL.data.unityweb" + v,
+      frameworkUrl: buildUrl + "/WebGL.framework.js.unityweb" + v,
+      codeUrl: buildUrl + "/WebGL.wasm.unityweb" + v,
       streamingAssetsUrl: "StreamingAssets",
       companyName: "DefaultCompany",
       productName: "WebGameProject",
@@ -133,7 +147,7 @@
     };
 
     var script = document.createElement("script");
-    script.src = buildUrl + "/WebGL.loader.js";
+    script.src = buildUrl + "/WebGL.loader.js" + v;
     script.onload = function () {
       createUnityInstance(canvas, config, function (p) {
         progress.style.width = (100 * p) + "%";
