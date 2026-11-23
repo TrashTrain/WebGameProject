@@ -2,6 +2,8 @@
 
 > 블록을 지워 수호령을 소환하고, 성벽을 도는 그림자를 막아내는 퍼즐 디펜스.
 
+![밤의 수호자 — 밤의 성벽과 4×4 블록 격자, 성벽을 지키는 수호령들](Assets/Art/Promo/night-guardian-thumbnail.png)
+
 **▶ [브라우저에서 바로 플레이](https://trashtrain.github.io/WebGameProject/)**
 
 설치 없이 돌아가는 Unity WebGL 게임입니다. PC는 마우스, 모바일은 터치로 같은 조작을 합니다.
